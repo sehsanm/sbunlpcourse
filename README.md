@@ -90,6 +90,8 @@ We want to promote the open science culture and one of the main points for it is
 If any violation of a fair competition is detected the matter will be reported to the instructor. 
 
 # Q&A 
-*What language we can write our code in?* You are free to use any language. We strongly suggest python language so for future we can consolidate your code. 
-*How should I upload files to this project?* You should use Git. If you are not familiar with Git, search internet and learn the basics. 
-*How I can ask my questions and clarify?* Please open an issue in this project and we will discuss it here is the link for it [Create a New Issue](https://github.com/sehsanm/sbunlpcourse/issues/new).
+**What language we can write our code in?**  You are free to use any language. We strongly suggest python language so for future we can consolidate your code. 
+
+**How should I upload files to this project?**  You should use Git. If you are not familiar with Git, search internet and learn the basics. 
+
+**How I can ask my questions and clarify?** Please open an issue in this project and we will discuss it. here is the link for it [Create a New Issue](https://github.com/sehsanm/sbunlpcourse/issues/new).
