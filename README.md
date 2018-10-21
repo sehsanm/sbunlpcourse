@@ -56,6 +56,7 @@ For segmentation purpose, we do as following. One sentence tokens (until the emp
 
 ## Morphological Analysis 
 For morphological analysis the possible tag values are as follows : 
+
 |Tag | Value |
 |----|-------|
 |A0|صفت|
