@@ -21,8 +21,16 @@ Normalization is the basic step of this competition. We are not going to score y
 
 ## File Format
 With each input file the tools must produce a file with same name but a different  extension (.out)
-The (.out) file is a tab(\t) delimited format.  Each line of the file starts with the token that is identified. The next entries will be used for other tasks are  (Token, Lemma, Stem, Morphology ) 
-An empty line means end of a sentence.  
+The (.out) file is a tab(\t) delimited format.  Each line of the file starts with the token that is identified. The format is based on CONLL file format.  Here is the columns of the file: 
+1. Index of the token in the sentence. Starting from 0 
+2. Word form which is the result of the Tokenization 
+3. Normalized form of the Token 
+4. Stem of the token from stemmer 
+5. Lemma of the token  from the Lemmatizer 
+6. Morphological Structure of the token. Once the morphemes are detected the have to be concatenated by ```+``` character. If there are multiple morphological structures then you can separate them with ```|``` character 
+7. Morphological Analysis of the token. Detailed description of this field will be published here soon. 
+If a token is punctuation or your tool does not produced a value for specific column make sure that you will be leaving a empty string in the file. Except for end of sentence each line must have 6 tabs characters (\t). An empty line means end of a sentence.  
+
 The whitespaces between the tokens should be ignored. (you must include them if they are in middle of the detected tokens). Following characters are considered white spaces: 
 * \r
 * \n 
@@ -32,34 +40,7 @@ The whitespaces between the tokens should be ignored. (you must include them if 
 All other characters are considered to be tokens if not part of another token. 
 For example for following sentence: 
 
-> My new Ipad worth 300$ and I bought it by 10% off. But I don't like it.
-
-Should be converted to: 
-```
-My  MY  MY ... 
-new
-Ipad
-worth
-300
-$
-and 
-I 
-bought
-it
-by
-10
-%
-off
-.
-
-But
-I 
-don't 
-like
-it
-.
-
-```
+> Sample file will be placed in the repository soon 
 
 #  Reference File 
 The test file will contain the same format file as output but with (.ref) extension. This file is the evaluation benchmark for the output file produced. 
