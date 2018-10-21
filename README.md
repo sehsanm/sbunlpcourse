@@ -53,7 +53,6 @@ The total score will be the sum of the scores you get from all input samples.
 
 For segmentation purpose, we do as following. One sentence tokens (until the empty line) are concatenated and any further whitespace will removed as well. Then we will count the number of matches between the sentences in the reference file and output file. 
 
-> For evaluation purpose, all the characters are converted to lowercase for English language. But for Persian text no further normalization is done. 
 ## Morphological Analysis 
 TBC 
 
