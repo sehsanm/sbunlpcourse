@@ -30,7 +30,7 @@ The (.out) file is a tab(\t) delimited format.  Each line of the file starts wit
 6. Morphological Structure of the token. Once the morphemes are detected the have to be concatenated by ```+``` character. If there are multiple morphological structures then you can separate them with ```|``` character 
 7. Morphological Analysis of the token. The number of elements in analysis column should be equal to the number of elements in Morphological structure column (separate by ```|```) Use the tokens mentioned [Here](#Morphological-Analysis).
 
-If a token is punctuation or your tool does not produced a value for specific column make sure that you will be leaving a empty string in the file. Except for end of sentence each line must have 6 tabs characters (\t). An empty line means end of a sentence.  
+If a token is punctuation or your tool does not produced a value for specific column make sure that you will be leaving a ```_``` in the that column. Except for end of sentence each line must have 6 tabs characters (\t). An empty line means end of a sentence.  
 
 The whitespaces between the tokens should be ignored. (you must include them if they are in middle of the detected tokens). Following characters are considered white spaces: 
 * \r
@@ -55,43 +55,43 @@ The total score will be the sum of the scores you get from all input samples.
 For segmentation purpose, we do as following. One sentence tokens (until the empty line) are concatenated and any further whitespace will removed as well. Then we will count the number of matches between the sentences in the reference file and output file. 
 
 ## Morphological Analysis 
-For morphological analysis the possible tag values are as follows : 
+For morphological analysis the possible tag values are as follows. If your tool is not as complete to produce all detailed tag  you can produce a simple tag (you will get  partial score though). 
 
-|Tag | Value |
-|----|-------|
-|A0|صفت|
-|A1|صفت اشاره|
-|A2|صفت مبهم|
-|Ab|اختصارات|
-|Ad|قید|
-|Al|حروف الفبا|
-|C0|حرف ربط|
-|C1|حرف ربط گروهی|
-|Exp|عبارت|
-|Intj|صوت|
-|N1|اسم|
-|N2|اسم خاص مکان |
-|N3|اسم خاص اشخاص|
-|N4|اسم فامیل|
-|N5|ضمیر فاعلی|
-|N6|ضمیر اشاره|
-|N7|ضمیر تاکیدی انعکاسی|
-|N8|ضمیر مشترک  متقابل|
-|N9| اسم موجود در ساختمان حرف اضافه و حرف ربط گروهی|
-|NA|ضمیر پرسشی|
-|No|عدد|
-|Nu|عدد اصلی|
-|Po|حرف اضافه پسین|
-|Pr|حرف اضافه|
-|Pr1|حرف اضافه گروهی|
-|Si|علامت|
-|Sp|شاخص|
-|V1|بن مضارع|
-|V2|بن ماضی|
-|V3| فعل اسنادی|
-|V4|فعل وجه نما|
-|V5|فعل کمکی|
-|VPr | پیشوند فعل|
+|Tag | Value | Partial Tag |
+|----|-------|----|
+|A0|صفت|A|
+|A1|صفت اشاره|A|
+|A2|صفت مبهم|A|
+|Ab|اختصارات|A|
+|Ad|قید|A|
+|Al|حروف الفبا|A|
+|C0|حرف ربط|C|
+|C1|حرف ربط گروهی|C|
+|Exp|عبارت|Exp|
+|Intj|صوت|Intj|
+|N1|اسم|N|
+|N2|اسم خاص مکان |N|
+|N3|اسم خاص اشخاص|N|
+|N4|اسم فامیل|N|
+|N5|ضمیر فاعلی|N|
+|N6|ضمیر اشاره|N|
+|N7|ضمیر تاکیدی انعکاسی|N|
+|N8|ضمیر مشترک  متقابل|N|
+|N9| اسم موجود در ساختمان حرف اضافه و حرف ربط گروهی|N|
+|NA|ضمیر پرسشی|N|
+|No|عدد|No|
+|Nu|عدد اصلی|No|
+|Po|حرف اضافه پسین|P|
+|Pr|حرف اضافه|P|
+|Pr1|حرف اضافه گروهی|P|
+|Si|علامت|S|
+|Sp|شاخص|S|
+|V1|بن مضارع|V|
+|V2|بن ماضی|V|
+|V3| فعل اسنادی|V|
+|V4|فعل وجه نما|V|
+|V5|فعل کمکی|V|
+|VPr | پیشوند فعل|VPr|
 
 # How to participate 
 This is a multi phase competition and the aim is to build a good test and evaluation set at the end. We also promote open-source culture to re-use each other's achievements. 
