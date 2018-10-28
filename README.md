@@ -91,7 +91,13 @@ For morphological analysis the possible tag values are as follows. If your tool 
 |V3| فعل اسنادی|V|
 |V4|فعل وجه نما|V|
 |V5|فعل کمکی|V|
+|V6|فعل امر|V|
 |VPr | پیشوند فعل|VPr|
+|Pl| علامت جمع| Pl| 
+|Y|  حرف ی| Y| 
+|Neg| علامت نفی|Neg|
+|O| هر گونه وندی که در دسته های قبل نبود|O|
+
 
 # How to participate 
 This is a multi phase competition and the aim is to build a good test and evaluation set at the end. We also promote open-source culture to re-use each other's achievements. 
