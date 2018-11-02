@@ -15,10 +15,10 @@ def read_conll_file(address):
             elif line:
                 item = line.split('\t')
                 if len(item) > 6:
-                    print('Warning Line [ ', line_number, '] has  ', len(item), ' tokens it must be 6')
+                    # print('Warning Line [ ', line_number, '] has  ', len(item), ' tokens it must be 6')
                     item = item[0:7]
                 elif len(item) < 6:
-                    print('Warning Line [ ', line_number, '] has  ', len(item), ' tokens it must be 6')
+                    # print('Warning Line [ ', line_number, '] has  ', len(item), ' tokens it must be 6')
                     item[len(item):6] = '_' * (6 - len(item))
                 stripped = []
                 for it in item:
@@ -89,7 +89,7 @@ def extract_scores():
     all_results = []
     for f in os.scandir(path):
         if f.is_dir():
-            output_files = os.listdir(path + '/' + f.name + '/');
+            output_files = os.listdir(path + '/' + f.name + '/')
             for of in output_files:
                 if of.endswith('.out'):
                     other_folder = of[:-4]
