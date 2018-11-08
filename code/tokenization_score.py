@@ -106,6 +106,8 @@ def set_matcher(s1 , s2):
         return 0
     return len(set(s1.replace('#' , '|').replace(' ' , '').split('|'))\
         .intersection(set(s2.replace('#' , '|').replace(' ' , '').split('|'))))
+
+
 def morph_matcher(s1 , s2):
 
     if len(s1) < 2 or len(s2) < 2 or  s1[0] == '_' or s2[0] == '_' or s1[1] == '_' or s2[1] == '_':
@@ -133,6 +135,7 @@ def reduced_tag(s):
         else:
             ret.append('O')
     return '+'.join(ret)
+
 
 def longest_common_subsequence_general(s1, s2, matcher):
     m = len(s1)
@@ -232,7 +235,9 @@ def score_file(output_file, ref_file):
     out_items = read_conll_file(output_file)
     segment_score = compare_segment(ref_items, out_items)
     token_score = compare_term(ref_items, out_items, 1)
-    stem_score = compare_term(ref_items, out_items, 2)
+    stem_score = longest_common_subsequence_general(reduce_column(ref_items , 2),
+                                                     reduce_column(out_items , 2),
+                                                     set_matcher)
     lemma_score = compare_term(ref_items, out_items, 3)
     morph_score = longest_common_subsequence_general(reduce_column(ref_items , 4),
                                                      reduce_column(out_items , 4),
@@ -247,7 +252,7 @@ def score_file(output_file, ref_file):
 
 def main():
     print('Scoring tool for SBU NLP Project')
-    #score_file('../data/sample/sample.out', '../data/sample/sample.ref')
+    # score_file('../data/sample/sample.out', '../data/sample/sample.ref')
     extract_scores()
 
 
