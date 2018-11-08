@@ -7,32 +7,77 @@ def read_conll_file(address):
     line_number = 0
     print('Opening file ', address)
     with open(address, encoding='UTF-8') as f:
-        line = f.readline()
-        while line:
-            l = line.strip()
-            if len(l) == 0:
-                ret.append([])  # End of sentence
-            elif line:
-                item = line.split('\t')
-                if len(item) > 6:
-                    # print('Warning Line [ ', line_number, '] has  ', len(item), ' tokens it must be 6')
-                    item = item[0:7]
-                elif len(item) < 6:
-                    # print('Warning Line [ ', line_number, '] has  ', len(item), ' tokens it must be 6')
-                    item[len(item):6] = '_' * (6 - len(item))
-                stripped = []
-                for it in item:
-                    s = it.strip()
-                    if len(s) == 0:
-                        s = '_'
-                    stripped.append(s)
-                ret.append(stripped)
+        try:
             line = f.readline()
-            line_number += 1
+            while line:
+                l = line.strip()
+                if len(l) == 0:
+                    ret.append([])  # End of sentence
+                elif line:
+                    item = line.split('\t')
+                    if len(item) > 6:
+                        # print('Warning Line [ ', line_number, '] has  ', len(item), ' tokens it must be 6')
+                        item = item[0:7]
+                    elif len(item) < 6:
+                        # print('Warning Line [ ', line_number, '] has  ', len(item), ' tokens it must be 6')
+                        item[len(item):6] = '_' * (6 - len(item))
+                    stripped = []
+                    for it in item:
+                        s = it.strip()
+                        if len(s) == 0:
+                            s = '_'
+                        stripped.append(s)
+                    ret.append(stripped)
+                line = f.readline()
+                line_number += 1
+        except:
+            print(f'Error Parsing the file: {address} Error {args}')
+
     return ret
 
+#
+# def longest_common_subsequence_length(s1, s2):
+#     m = len(s1)
+#     n = len(s2)
+#     c = [[0] * (n + 1) for i in range(m + 1)]
+#     for i in range(1, m):
+#         c[i][0] = 0
+#     for j in range(1, n):
+#         c[0][j] = 0
+#     for i in range(1, m + 1):
+#         for j in range(1, n + 1):
+#             if s1[i - 1] == s2[j - 1] and s1[i - 1] != '_':  # As _ is equal to empty we will not match them!
+#                 c[i][j] = c[i - 1][j - 1] + 1
+#             else:
+#                 c[i][j] = max(c[i][j - 1], c[i - 1][j])
+#     return c[m][n]
 
-def longest_common_subsequence_length(s1, s2):
+
+def normal_string_matcher(s1 , s2):
+    if s1 == s2 and s1 != '_':  # As _ is equal to empty we will not match them!
+        return 1
+    else:
+        return 0
+
+
+def morph_matcher(s1 , s2):
+    if s1[0] == '_' or s2[0] == '_' or s1[1] == '_' or s2[1] == '_':
+        return 0
+
+
+def build_morph_set(struct, analyis):
+    struct_parts = struct.replace(' ', '').split('|')
+    analyis_parts = analyis.replace(' ', '').lower().split('|')
+    ret = set()
+    for i in range(min(len(struct_parts, analyis_parts))):
+        ret.add(struct_parts[i] + analyis_parts[i])
+        ret.add(struct_parts[i] + reduced_tag(analyis_parts[i]))
+
+
+def reduced_tag(s):
+    
+
+def longest_common_subsequence_general(s1, s2, matcher):
     m = len(s1)
     n = len(s2)
     c = [[0] * (n + 1) for i in range(m + 1)]
@@ -42,17 +87,14 @@ def longest_common_subsequence_length(s1, s2):
         c[0][j] = 0
     for i in range(1, m + 1):
         for j in range(1, n + 1):
-            if s1[i - 1] == s2[j - 1] and s1[i - 1] != '_':  # As _ is equal to empty we will not match them!
-                c[i][j] = c[i - 1][j - 1] + 1
-            else:
-                c[i][j] = max(c[i][j - 1], c[i - 1][j])
+            c[i][j] = max(c[i][j - 1], c[i - 1][j], c[i - 1][j - 1] + matcher(s1[i - 1], s2[j - 1]))
     return c[m][n]
 
 
 def compare_term(ref_items, out_items, ind):  # ind 1:normalized token, 2:stem, 3:lemma
     ref_item = reduce_column(ref_items, ind)
     out_item = reduce_column(out_items, ind)
-    count = longest_common_subsequence_length(ref_item, out_item)
+    count = longest_common_subsequence_general(ref_item, out_item, normal_string_matcher)
 
     return count
 
@@ -71,7 +113,7 @@ def compare_segment(ref_items, out_items):
     ref_seg = extract_segment_part(ref_items)
     out_seg = extract_segment_part(out_items)
 
-    return longest_common_subsequence_length(ref_seg, out_seg)
+    return longest_common_subsequence_general(ref_seg, out_seg, normal_string_matcher)
 
 
 def extract_scores():
@@ -110,13 +152,17 @@ def extract_scores():
 
 def reduce_column(lst, column):
     ret = []
-    for l in lst:
-        if len(l) == 0:
-            continue
-        if column < len(l):
-            ret.append(l[column])
-        else:
-            ret.append('_')
+    if isinstance(column, list):
+        for c in column:
+            ret.append(reduce_column(lst, c))
+    else:
+        for l in lst:
+            if len(l) == 0:
+                continue
+            if column < len(l):
+                ret.append(l[column])
+            else:
+                ret.append('_')
     return ret
 
 
